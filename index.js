@@ -1,12 +1,10 @@
-function isValidParentheses(s) {
-  const stack = [];
-  const map = { "(": ")", "[": "]", "{": "}" };
-  for (const char of s) {
-    if (char in map) stack.push(char);
-    else {
-      const top = stack.pop();
-      if (map[top] !== char) return false;
+function removeDuplicates(nums) {
+  let index = 0;
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] !== nums[index]) {
+      index++;
+      nums[index] = nums[i];
     }
   }
-  return stack.length === 0;
+  return index + 1;
 }
