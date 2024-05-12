@@ -1,25 +1,14 @@
-function trap(height) {
-  let totalWater = 0;
-  let left = 0;
-  let right = height.length - 1;
-  let maxLeft = 0;
-  let maxRight = 0;
-  while (left < right) {
-    if (height[left] < height[right]) {
-      if (height[left] >= maxLeft) {
-        maxLeft = height[left];
-      } else {
-        totalWater += maxLeft - height[left];
+function lengthOfLIS(nums) {
+  if (nums.length === 0) return 0;
+  const dp = new Array(nums.length).fill(1);
+  let max = 1;
+  for (let i = 1; i < nums.length; i++) {
+    for (let j = 0; j < i; j++) {
+      if (nums[i] > nums[j]) {
+        dp[i] = Math.max(dp[i], dp[j] + 1);
+        max = Math.max(max, dp[i]);
       }
-      left++;
-    } else {
-      if (height[right] >= maxRight) {
-        maxRight = height[right];
-      } else {
-        totalWater += maxRight - height[right];
-      }
-      right--;
     }
   }
-  return totalWater;
+  return max;
 }
