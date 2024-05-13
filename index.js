@@ -1,14 +1,17 @@
-function lengthOfLIS(nums) {
-  if (nums.length === 0) return 0;
-  const dp = new Array(nums.length).fill(1);
-  let max = 1;
-  for (let i = 1; i < nums.length; i++) {
-    for (let j = 0; j < i; j++) {
-      if (nums[i] > nums[j]) {
-        dp[i] = Math.max(dp[i], dp[j] + 1);
-        max = Math.max(max, dp[i]);
-      }
+function decodeString(s) {
+  const stack = [];
+  for (const char of s) {
+    if (char !== "]") stack.push(char);
+    else {
+      let str = "";
+      while (stack.length && stack[stack.length - 1] !== "[")
+        str = stack.pop() + str;
+      stack.pop();
+      let num = "";
+      while (stack.length && !isNaN(stack[stack.length - 1]))
+        num = stack.pop() + num;
+      stack.push(str.repeat(parseInt(num)));
     }
   }
-  return max;
+  return stack.join("");
 }
