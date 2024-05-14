@@ -1,17 +1,10 @@
-function decodeString(s) {
-  const stack = [];
-  for (const char of s) {
-    if (char !== "]") stack.push(char);
-    else {
-      let str = "";
-      while (stack.length && stack[stack.length - 1] !== "[")
-        str = stack.pop() + str;
-      stack.pop();
-      let num = "";
-      while (stack.length && !isNaN(stack[stack.length - 1]))
-        num = stack.pop() + num;
-      stack.push(str.repeat(parseInt(num)));
+function coinChange(coins, amount) {
+  const dp = new Array(amount + 1).fill(Infinity);
+  dp[0] = 0;
+  for (const coin of coins) {
+    for (let i = coin; i <= amount; i++) {
+      dp[i] = Math.min(dp[i], dp[i - coin] + 1);
     }
   }
-  return stack.join("");
+  return dp[amount] === Infinity ? -1 : dp[amount];
 }
