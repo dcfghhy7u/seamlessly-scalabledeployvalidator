@@ -1,10 +1,10 @@
-function coinChange(coins, amount) {
-  const dp = new Array(amount + 1).fill(Infinity);
-  dp[0] = 0;
-  for (const coin of coins) {
-    for (let i = coin; i <= amount; i++) {
-      dp[i] = Math.min(dp[i], dp[i - coin] + 1);
-    }
-  }
-  return dp[amount] === Infinity ? -1 : dp[amount];
-}
+const pullAtValue = (arr, pullArr) => {
+  let removed = [],
+    pushToRemove = arr.forEach((v, i) =>
+      pullArr.includes(v) ? removed.push(v) : v,
+    ),
+    mutateTo = arr.filter((v, i) => !pullArr.includes(v));
+  arr.length = 0;
+  mutateTo.forEach((v) => arr.push(v));
+  return removed;
+};
